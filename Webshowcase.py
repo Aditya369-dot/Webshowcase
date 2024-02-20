@@ -41,23 +41,17 @@ floating_animation = """
     height: 100px;
 }
 
-.python-symbol {
-    /* No need for absolute positioning */
-}
-
-.sql-symbol {
-    /* No need for absolute positioning */
-}
-
-.ai-symbol {
-    /* No need for absolute positioning */
-}
-
-.pie-chart {
+.python-symbol,
+.sql-symbol,
+.ai-symbol,
+.pie-chart,
+.snowflake { 
     /* No need for absolute positioning */
 }
 </style>
 """
+
+
 
 # Inject the CSS into the Streamlit app
 
@@ -103,8 +97,8 @@ st.markdown('<div class="floating-container">'
             '<div class="floating-element sql-symbol"><img src="https://img.icons8.com/color/100/000000/sql.png" alt="SQL Icon"></div>'
             '<div class="floating-element ai-symbol"><img src="https://img.icons8.com/color/100/000000/artificial-intelligence.png" alt="AI Icon"></div>'
             '<div class="floating-element pie-chart"><img src="https://img.icons8.com/color/100/000000/pie-chart.png" alt="Pie Chart Icon"></div>'
+            '<div class="floating-element snowflake"><img src="https://img.icons8.com/fluent/100/000000/snowflake.png" alt="Snowflake Icon"></div>'
             '</div>', unsafe_allow_html=True)
-
 col2 = st.sidebar
 
 # Add GitHub, LinkedIn, and Twitter links to column 2
