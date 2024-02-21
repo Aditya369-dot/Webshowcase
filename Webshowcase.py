@@ -1,148 +1,81 @@
 import streamlit as st
-
-# Define the CSS code to style the title
-title_style = """
-<style>
-.title-wrapper {
-    background-color: rgba(0, 0, 0, 0.5); /* Transparent background */
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    color: #ffffff; /* Text color */
-    font-size: 3em; /* Adjust the font size */
-}
-</style>
-"""
-
-# Inject the CSS into the Streamlit app
-st.markdown(title_style, unsafe_allow_html=True)
-
-# Display the styled and animated title
-st.markdown('<div class="title-wrapper">'
-            '<h1>👋 HI! I am Aditya Bholla</h1>'
-            '</div>', unsafe_allow_html=True)
+import requests
+from streamlit_lottie import st_lottie
 
 
-
-# Define the CSS code to set the background image and change text color
-page_bg_img = """
-<style>
-[data-testid="stAppViewContainer"] {
-    background: url('https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=1720&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    font-family: 'Roboto', sans-serif; /* Use Roboto font */
-}
-
-</style>
-"""
+# Load a Lottie animation from a URL
+def load_lottieurl(url: str):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
 
 
-# Inject the CSS into the Streamlit app
-st.markdown(page_bg_img, unsafe_allow_html=True)
+# Display the title with custom styles
+st.title('Hi! I am Aditya Bholla 👋')
+st.info("Welcome to my Portfolio ")
 
-# Define CSS animation for floating elements with a cooler motion
-st.title("")
-st.title("")
-st.title("")
+# Main page animation
+main_page_animation_url = "https://lottie.host/dcad3487-ab37-4b1c-8cae-47d3c88188ea/QCmC5PmaIN.json"
+main_page_animation = load_lottieurl(main_page_animation_url)
 
+if main_page_animation:
+    st_lottie(main_page_animation, height=300, key="main_page")
+else:
+    st.error("Error loading main page animation. Please check the URL and try again.")
 
-floating_animation = """
-<style>
-@keyframes float {
-    0% { transform: translateY(0) rotate(0) scale(1); }
-    50% { transform: translateY(-20px) rotate(5deg) scale(1.1); }
-    100% { transform: translateY(0) rotate(0) scale(1); }
-}
+# Load Lottie animations from URLs for skills
+python_lottie_url = "https://lottie.host/491102f6-76e7-4c54-9f63-9a2d74740a74/0hvBOPiOqz.json"
+mongodb_lottie_url = "https://lottie.host/085add69-1289-43da-970d-41dd691a4c8a/0hhlo3TVSC.json"
+tensorflow_lottie_url = "https://lottie.host/869aa6a1-59f0-4678-a597-5d9207105aae/EqhZIgzKDk.json"
+database_lottie_url = "https://lottie.host/9996ecd3-c31b-4ab7-976d-5e77e700368b/oDfFmYE7JC.json"
 
-.floating-element {
-    animation: float 5s ease-in-out infinite;
-    position: absolute;
-    width: 100px; /* Adjust the size of the symbols */
-    height: 100px;
-}
+python_lottie = load_lottieurl(python_lottie_url)
+mongodb_lottie = load_lottieurl(mongodb_lottie_url)
+tensorflow_lottie = load_lottieurl(tensorflow_lottie_url)
+database_lottie = load_lottieurl(database_lottie_url)
 
-.python-symbol {
-    top: 20%;
-    left: 10%;
-}
+# Ensure there's a fallback in case the Lottie animations can't be loaded
+if not python_lottie or not mongodb_lottie or not tensorflow_lottie or not database_lottie:
+    st.error("Error loading one or more animations. Please check the URLs and try again.")
 
-.sql-symbol {
-    top: 200; /* Same top value as Python symbol to align in the same row */
-    left: 30%; /* Adjust left value to position next to Python symbol */
-}
+# Display the Lottie animations for skills
+with st.container():
+    st.subheader('⚒️ My Skills')
 
-.ai-symbol {
-    top: 400%; /* Same top value as Python symbol to align in the same row */
-    left: 50%; /* Adjust left value to position next to SQL symbol */
-}
+    col1, col2, col3, col4 = st.columns(4)
 
-.pie-chart {
-    top: 20%; /* Same top value as Python symbol to align in the same row */
-    left: 70%; /* Adjust left value to position next to AI symbol */
-}
-.power-bi-symbol {
-    top:400%;
-    left:90%;
-}
-</style>
-"""
+    with col1:
+        if python_lottie:
+            st_lottie(python_lottie, height=150, key="python")
+        else:
+            st.write("Python Skill Animation Missing")
 
-# Inject the CSS into the Streamlit app
-st.markdown(floating_animation, unsafe_allow_html=True)
+    with col2:
+        if mongodb_lottie:
+            st_lottie(mongodb_lottie, height=150, key="mongodb")
+        else:
+            st.write("MongoDB Skill Animation Missing")
 
-# Add floating elements (Icons8 icons with HTML code, SQL, AI symbols, and a floating pie chart)
+    with col3:
+        if tensorflow_lottie:
+            st_lottie(tensorflow_lottie, height=150, key="tensorflow")
+        else:
+            st.write("TensorFlow Skill Animation Missing")
 
-# Inject the CSS into the Streamlit app
+    with col4:
+        if database_lottie:
+            st_lottie(database_lottie, height=150, key="database")
+        else:
+            st.write("Database Skill Animation Missing")
 
-
-# Add floating elements (Icons8 icons with HTML code, SQL, AI symbols, and a floating pie chart)
-
-
-# Add floating elements (Icons8 icons with HTML code, SQL, AI symbols, and a floating pie chart)
+# Tableau skill using an image
 
 
-# Create two columns for the floating elements
+# You can add additional skills or sections by following the same pattern
 
 
-# Define the floating elements for the first column (Python, SQL, Power BI)
-
-
-
-# Inject the CSS into the Streamlit app
-
-
-# Define CSS code for styling the title and animation
-
-
-# Display the styled and animated title
-st.markdown("<h1 class='SKILLS'> !!</h1>", unsafe_allow_html=True)
-
-col1, col2, col3, col4, col5 =st.columns([1,1,1,1,1])
-# Add floating elements (Icons8 icons with HTML code, SQL, AI symbols, and a floating pie chart)
-with col1:
-    st.markdown('<div class="floating-element python-symbol"><img src="https://img.icons8.com/color/100/000000/python.png" alt="Python Logo"></div>', unsafe_allow_html=True)
-with col2:
-    st.markdown('<div class="floating-element ai-symbol"><img src="https://img.icons8.com/color/100/000000/artificial-intelligence.png" alt="AI Icon"></div>', unsafe_allow_html=True)
-with col3:
-    st.markdown('<div class="floating-element power-bi-symbol"><img src="https://img.icons8.com/color/100/000000/power-bi.png" alt="Power BI Icon"></div>', unsafe_allow_html=True)
-
-
-# Create hero wrapper for your information
-
-col2 = st.sidebar
-
-# Add GitHub, LinkedIn, and Twitter links to column 2
-col2.markdown("[![GitHub](https://img.icons8.com/ios-glyphs/45/FFFFFF/github.png)](https://github.com/Aditya369-dot)     "
-              "[![LinkedIn](https://img.icons8.com/ios-glyphs/45/FFFFFF/linkedin-circled--v2.png)](https://www.linkedin.com/in/aditya-b-231a0a194/)     "
-              "[![Twitter](https://img.icons8.com/ios-glyphs/40/FFFFFF/twitter.png)](https://twitter.com/adibholla21)")
-
-
-
-
-
+# You can add additional skills in the same manner by creating more columns and loading respective Lottie animations
 
 
 
