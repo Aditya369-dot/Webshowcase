@@ -11,29 +11,6 @@ def load_lottieurl(url: str):
         return None
     return r.json()
 
-from PIL import Image, ImageDraw, ImageOps
-import streamlit as st
-
-def add_rounded_corners(im, rad):
-    circle = Image.new('L', (rad * 2, rad * 2), 0)
-    draw = ImageDraw.Draw(circle)
-    draw.ellipse((0, 0, rad * 2, rad * 2), fill=255)
-    alpha = Image.new('L', im.size, 255)
-    w,h = im.size
-    alpha.paste(circle.crop((0, 0, rad, rad)), (0, 0))
-    alpha.paste(circle.crop((0, rad, rad, rad * 2)), (0, h - rad))
-    alpha.paste(circle.crop((rad, 0, rad * 2, rad)), (w - rad, 0))
-    alpha.paste(circle.crop((rad, rad, rad * 2, rad * 2)), (w - rad, h - rad))
-    im.putalpha(alpha)
-    return im
-
-# Load your image
-image = Image.open("final_img.png")
-
-# Add rounded corners (adjust radius as needed)
-rounded_image = add_rounded_corners(image, 20)  # Adjust the radius to your preference
-
-# Display the image with Streamlit
 
 
 
@@ -66,54 +43,46 @@ st.sidebar.markdown("""
 [![Instagram](https://img.icons8.com/ios-glyphs/45/FFFFFF/instagram-new.png)](https://www.instagram.com/aditya_4real/?next=%2Foauth%2Foidc%2F%3Fapp_id%3D1289884158313322%26scope%3Dopenid%26response_type%3Dcode%26state%3DATB3TBXUaFJLKVN4dV5PYrDMQbVb4gYfCo_NtC7hKYeXi_xGSJiosSqUdnYymaMoKJCIQ-uoXpCCDDfHA95spC5vL_FHjyYUfkdMmj9igbQgB-ULu0BNLWW_VlXz7cGbGkSqtdg-Hl5PNAFvQ3Q4T4KkG1A%26redirect_uri%3Dhttps%3A%2F%2Fwww.threads.net%2Flogin%2Foidc%2F%26logger_id%3D31423f7a-6b01-4808-91a7-32c2a0b89ead)
 """, unsafe_allow_html=True)
 
-def gradient(color1, color2, color3, content1, content2, width='100%'):
-    st.markdown(
-        f'<div style="width: {width}; margin: auto;">'
-        f'<h1 style="text-align:center;background-image: linear-gradient(to right, {color1}, {color2}, {color3}); '
-        f'font-size:40px; color:white; padding: 15px;">{content1}<br>'
-        f'<span style="font-size:20px;">{content2}</span></h1></div>',
-        unsafe_allow_html=True
-    )
+import streamlit as st
 
-
-
-# Call the gradient function with the specified colors and content
-
+def gradient(color1, color2, color3, content1, content2):
+    # Create an HTML structure with styling for a gradient header
+    st.markdown(f'<h1 style="text-align:center;background-image: linear-gradient(to right,{color1}, {color2});font-size:75px;border-radius:12%;">'
+                f'<span style="color:{color3};">{content1}</span><br>'
+                f'<span style="color:#39ff14;font-size:25px;">{content2}</span></h1>',
+                unsafe_allow_html=True)
+# Layout with responsive design and specific sizes
 with st.container():
-    empty_col,colx, colz = st.columns([3, 7, 3])
-
-with empty_col:
-    st.title("")
-    st.title("")
-    st.title("")
-    st.title("")
-    st.text("")
-    st.image("final_img.png",use_column_width=True)
-
+   colx, colb = st.columns([1.4,5], gap="small")
 
 with colx:
-    gradient("#833AB4", "#C13584", "#F56040", "Hi! I am Aditya Bholla 👋", "Your Go-to Data professional.")
-    st.title("🔍 A Little Bit About Me")
-    st.write("")
-    st.markdown("""
-    Welcome to my project showcase. As a seasoned Data Professional, my journey in the field is marked by a deep commitment to translating complex data into actionable insights, driving forward business intelligence initiatives with precision and foresight. My technical prowess spans across a broad spectrum of analytics, business intelligence, and visualization platforms, including <span style="color: #39ff14;">Power BI, Tableau, and Oracle BI</span>, all bolstered by robust data analysis capabilities in <span style="color: #39ff14;">SQL and Python</span>. This foundation allows me to leverage advanced machine learning techniques, utilizing libraries such as <span style="color: #39ff14;">TensorFlow and scikit-learn</span>, to inform strategic planning and foster innovative growth strategies.
+    st.image("final_img.png")
 
-    My expertise extends further into the realms of cloud technologies, with proficiency in <span style="color: #39ff14;">Oracle ERP Fusion Cloud, Microsoft Azure, and Snowflake</span>, ensuring scalable and efficient data management solutions. This proficiency in cloud infrastructure is pivotal for deploying flexible and resilient data ecosystems that support the dynamic needs of modern businesses.
+with colb:
+    st.title("")
+    st.title("")
+    st.title("")
+    gradient("#833AB4", "#C13584", "#FFFF", "Hi! I am Aditya Bholla 👋", "Your Go-to Data professional.")
 
-    A significant portion of my experience involves the intricacies of Data Science and Data Engineering practices. This includes adept knowledge in <span style="color: #39ff14;">ETL processes and creating robust data pipelines using Apache Airflow</span>, essential for streamlining data workflows and enhancing data quality and accessibility. My capabilities are further enriched by an understanding of <span style="color: #39ff14;">Large Language Models (LLMs) like Gemini and LLAMA</span>, which opens new avenues for leveraging natural language processing to extract insights and automate decision-making processes.
 
-    Moreover, my skill set is complemented by a familiarity with web development frameworks such as <span style="color: #39ff14;">Streamlit, Flask, and Django</span>. This knowledge enables me to build interactive, user-friendly applications that make analytical insights accessible to a broader audience, facilitating data-driven decision-making across organizational levels.
+with st.container():
+    colz,colm =st.columns([4,2])
 
-    """, unsafe_allow_html=True)
 
 with colz:
-    st.title("")
-    st.title("")
-    st.title("")
-    st.title("")
-    st.text("")
+    st.title("🔍 A Little Bit About Me")
+    st.markdown("""
+        Welcome to my project showcase. As a seasoned Data Professional, my journey in the field is marked by a deep commitment to translating complex data into actionable insights, driving forward business intelligence initiatives with precision and foresight. My technical prowess spans across a broad spectrum of analytics, business intelligence, and visualization platforms, including <span style="color: #39ff14;">Power BI, Tableau, and Oracle BI</span>, all bolstered by robust data analysis capabilities in <span style="color: #39ff14;">SQL and Python</span>. This foundation allows me to leverage advanced machine learning techniques, utilizing libraries such as <span style="color: #39ff14;">TensorFlow and scikit-learn</span>, to inform strategic planning and foster innovative growth strategies.
 
+        My expertise extends further into the realms of cloud technologies, with proficiency in <span style="color: #39ff14;">Oracle ERP Fusion Cloud, Microsoft Azure, and Snowflake</span>, ensuring scalable and efficient data management solutions. This proficiency in cloud infrastructure is pivotal for deploying flexible and resilient data ecosystems that support the dynamic needs of modern businesses.
 
+        A significant portion of my experience involves the intricacies of Data Science and Data Engineering practices. This includes adept knowledge in <span style="color: #39ff14;">ETL processes and creating robust data pipelines using Apache Airflow</span>, essential for streamlining data workflows and enhancing data quality and accessibility. My capabilities are further enriched by an understanding of <span style="color: #39ff14;">Large Language Models (LLMs) like Gemini and LLAMA</span>, which opens new avenues for leveraging natural language processing to extract insights and automate decision-making processes.
+
+        Moreover, my skill set is complemented by a familiarity with web development frameworks such as <span style="color: #39ff14;">Streamlit, Flask, and Django</span>. This knowledge enables me to build interactive, user-friendly applications that make analytical insights accessible to a broader audience, facilitating data-driven decision-making across organizational levels.
+
+        """, unsafe_allow_html=True)
+
+with colm:
     main_page_animation_url = "https://lottie.host/dcad3487-ab37-4b1c-8cae-47d3c88188ea/QCmC5PmaIN.json"
     main_page_animation = load_lottieurl(main_page_animation_url)
     if main_page_animation:
