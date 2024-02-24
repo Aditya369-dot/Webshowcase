@@ -1,8 +1,7 @@
 import streamlit as st
 import requests
 from streamlit_lottie import st_lottie
-from PIL import Image, ImageDraw, ImageOps
-from constant import *
+import pandas as pd
 
 st.set_page_config(layout="wide")
 def load_lottieurl(url: str):
@@ -162,6 +161,20 @@ with st.container():
             st.write('Project animation missing')
 
 
+df = pd.read_csv('data.csv',sep=";")
+
+with st.container():
+    col_cool , col_industry = st.columns(2)
+
+with col_cool:
+    for index ,row in df[:4].iterrows():
+        st.header(row["title"])
+        st.write(row["description"])
+
+with col_industry:
+    for index, row in df[4:8].iterrows():
+        st.header(row["title"])
+        st.write(row["description"])
 
 
 
