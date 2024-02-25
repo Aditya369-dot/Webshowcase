@@ -11,8 +11,6 @@ def load_lottieurl(url: str):
     return r.json()
 
 
-
-
 # Note: Make sure to replace "...your application code as previously..." with the actual code sections for loading your Lottie animations and other content.
 # Load Lottie animations from URLs for skills
 python_lottie_url = "https://lottie.host/491102f6-76e7-4c54-9f63-9a2d74740a74/0hvBOPiOqz.json"
@@ -52,16 +50,17 @@ def gradient(color1, color2, color3, content1, content2):
                 unsafe_allow_html=True)
 # Layout with responsive design and specific sizes
 with st.container():
-   colx, colb = st.columns([1.4,5], gap="small")
+  colb ,colx = st.columns([5,1.4], gap="small")
 
-with colx:
-    st.image("final_img.png")
 
 with colb:
     st.title("")
     st.title("")
     st.title("")
     gradient("#833AB4", "#C13584", "#FFFF", "Hi! I am Aditya Bholla 👋", "Your Go-to Data professional.")
+with colx:
+    st.image("final_img.png")
+
 
 
 with st.container():
@@ -77,7 +76,7 @@ with colz:
 
         A significant portion of my experience involves the intricacies of Data Science and Data Engineering practices. This includes adept knowledge in <span style="color: #39ff14;">ETL processes and creating robust data pipelines using Apache Airflow</span>, essential for streamlining data workflows and enhancing data quality and accessibility. My capabilities are further enriched by an understanding of <span style="color: #39ff14;">Large Language Models (LLMs) like Gemini and LLAMA</span>, which opens new avenues for leveraging natural language processing to extract insights and automate decision-making processes.
 
-        Moreover, my skill set is complemented by a familiarity with web development frameworks such as <span style="color: #39ff14;">Streamlit, Flask, and Django</span>. This knowledge enables me to build interactive, user-friendly applications that make analytical insights accessible to a broader audience, facilitating data-driven decision-making across organizational levels.
+        Moreover, my skill set is complemented by a familiarity with web development frameworks such as <span style="color: #39ff14;">Streamlit and Django</span>. This knowledge enables me to build interactive, user-friendly applications that make analytical insights accessible to a broader audience, facilitating data-driven decision-making across organizational levels.
 
         """, unsafe_allow_html=True)
 
@@ -162,18 +161,31 @@ with st.container():
 
 
 df = pd.read_csv('data.csv',sep=";")
+st.title("")
+st.markdown("""
+    <style>
+    .neon-title {
+        color: #39ff14;  /* Neon green color */
+        text-align: center;
+    }
+    </style>
+    <h1 class="neon-title"> 🚀 PROJECTS</h1>
+    """, unsafe_allow_html=True)
+st.title("")
 
 with st.container():
-    col_cool , col_industry = st.columns(2)
+    col_cool ,acol, col_industry = st.columns([2,0.5,2])
 
 with col_cool:
     for index ,row in df[:4].iterrows():
         st.header(row["title"])
+        st.image("images/" + row["image"])
         st.write(row["description"])
-
+        st.write("[Project Link]({row['url']})")
 with col_industry:
     for index, row in df[4:8].iterrows():
         st.header(row["title"])
+        st.image("images/" + row["image"])
         st.write(row["description"])
 
 
